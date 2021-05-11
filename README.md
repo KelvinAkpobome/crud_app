@@ -19,7 +19,7 @@ https://simple-crud-app-1.herokuapp.com/user/add/
 
 ```bash
 {
-  "message": " user updated" 
+  "message": " user added" 
   "user": { 
       "_id": 56008751249008765
       "name":John Doe",
@@ -45,7 +45,7 @@ https://simple-crud-app-1.herokuapp.com/user/56008751249008765
 
 ```bash
 {
-  "message": " user updated" 
+  "message": " user found" 
   "user": { 
       "_id": 56008751249008765
       "name":John Doe",
@@ -109,7 +109,7 @@ https://simple-crud-app-1.herokuapp.com/user/remove/56008751249008765
 
 ```bash
 {
-  "message": " user updated" 
+  "message": " user deleted" 
   "user": { 
       "_id": 56008751249008765
       "name":John Doe",
