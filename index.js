@@ -13,7 +13,7 @@ const port = process.env.PORT || '3000';
 
 //landing route
 app.get('/',(req,res) => {
-    res.send(<h1> Welcome to a basic CRUD app landing Page </h1>)
+    res.send('<h1> Welcome to a basic CRUD app landing Page </h1>')
 });
 
 //route to get single user data
