@@ -36,14 +36,33 @@ app.get('/user/:id', (req, res) => {
 
 //route to add single user data
 app.post('/user', (req, res) => {
-    User.create(req.body)
+    User.findOne({email: req.body.email})
     .then(user => {
-        res.send({//saves user data and responds with data
-            message: "Saved",
-            data: {
-                user
+        if(!user){
+            let newUser = new User({
+                name : req.body.name,
+                email: req.body.email,
+                country: req.body.country
+
+            });
+            newUser.save()
+            .then( user => {
+                res.send({//saves user data and responds with data
+                    message: "Saved",
+                    data: {
+                        user
+                    }
+                })
             }
-        }) 
+            )          
+        }else {
+            res.send({//fails to save user data and responds with data
+                message: "Failed, user already exists",
+                data: {
+                    user
+                }
+            })
+        }
     })
     .catch(err => {
         res.send({//returns error is save failed
