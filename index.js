@@ -10,6 +10,12 @@ app.use(express.urlencoded({extended: false}));
 
 const port = process.env.PORT || '3000'; 
 
+
+//landing route
+app.get('/',(req,res) => {
+    res.send('<h1> Welcome to a basic CRUD app landing Page </h1>')
+});
+
 //route to get single user data
 app.get('/user/:id', (req, res) => {
     User.findById({ _id : req.params.id})//find user by id
@@ -35,7 +41,7 @@ app.get('/user/:id', (req, res) => {
 });
 
 //route to add single user data
-app.post('/user', (req, res) => {
+app.post('/user/add', (req, res) => {
     User.findOne({email: req.body.email})
     .then(user => {
         if(!user){
@@ -72,7 +78,7 @@ app.post('/user', (req, res) => {
 });
 
 //route to delete single user data
-app.delete('/user/:id', (req, res) => {
+app.delete('/user/remove/:id', (req, res) => {
     User.findOneAndDelete({ _id : req.params.id}, {useFindAndModify: false})
     .then((user) => {
         res.send({//finds and update user data, then sends data back
@@ -89,7 +95,7 @@ app.delete('/user/:id', (req, res) => {
 });
 
 //route to update single user data
-app.put('/user/:id', (req, res) => {
+app.put('/user/edit/:id', (req, res) => {
     User.findByIdAndUpdate({ _id : req.params.id}, req.body, {useFindAndModify: false})
     .then(() => {//first updates user data
         User.findOne({ _id : req.params.id})//goes back to db to get updated data
