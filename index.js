@@ -21,11 +21,11 @@ app.get('/user/:id', (req, res) => {
     User.findById({ _id : req.params.id})//find user by id
     .then((user => {
         if (user === null){ //check if user is null
-            res.send({
+            res.status(404).send({
                 message: "User not found",
             })
         }
-        else {res.send({//if user is found, send user data
+        else {res.status(200).send({//if user is found, send user data
             message: "User found",
             data: {
                 user
@@ -53,7 +53,7 @@ app.post('/user/add', (req, res) => {
             });
             newUser.save()
             .then( user => {
-                res.send({//saves user data and responds with data
+                res.status(201).send({//saves user data and responds with data
                     message: "Saved",
                     data: {
                         user
@@ -62,7 +62,7 @@ app.post('/user/add', (req, res) => {
             }
             )          
         }else {
-            res.send({//fails to save user data and responds with data
+            res.status(403).send({//fails to save user data and responds with data
                 message: "Failed, user already exists",
                 data: {
                     user
@@ -81,13 +81,13 @@ app.post('/user/add', (req, res) => {
 app.delete('/user/remove/:id', (req, res) => {
     User.findOneAndDelete({ _id : req.params.id}, {useFindAndModify: false})
     .then((user) => {
-        res.send({//finds and update user data, then sends data back
+        res.status(204).send({//finds and update user data, then sends data back
             message: "User deleted",
             user
         })
     })
     .catch(err => {
-        res.send({//if data not found, inform user with message
+        res.status(404).send({//if data not found, inform user with message
             message: `User does not exist or ${err.message}`,
             
         })
@@ -100,14 +100,14 @@ app.put('/user/edit/:id', (req, res) => {
     .then(() => {//first updates user data
         User.findOne({ _id : req.params.id})//goes back to db to get updated data
         .then((userUpdated) => {
-            res.send({
+            res.status(200).send({
                 message: "User updated",
                 userUpdated// sends updated data
             })
         })
     })
     .catch(err => {
-        res.send({//returns message if user is not found
+        res.status(404).send({//returns message if user is not found
             message: `User does not exist or ${err.message}`,
             
         })
